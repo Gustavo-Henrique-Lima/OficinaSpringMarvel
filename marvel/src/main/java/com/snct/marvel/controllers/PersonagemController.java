@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.snct.marvel.entities.Personagem;
 import com.snct.marvel.services.PersonagemService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/personagens")
 public class PersonagemController {
@@ -44,12 +46,12 @@ public class PersonagemController {
 	}
 
 	@PostMapping("/salvar")
-	public Personagem salvarPersonagem(@RequestBody Personagem Personagem) {
+	public Personagem salvarPersonagem(@Valid @RequestBody Personagem Personagem) {
 		return service.salvarPersonagem(Personagem);
 	}
 
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Personagem> atualizarPersonagem(@PathVariable Long id, @RequestBody Personagem Personagem) {
+	public ResponseEntity<Personagem> atualizarPersonagem(@PathVariable Long id,@Valid @RequestBody Personagem Personagem) {
 		Personagem PersonagemAtualizado = service.atualizarPersonagem(id, Personagem);
 		return ResponseEntity.ok(PersonagemAtualizado);
 	}

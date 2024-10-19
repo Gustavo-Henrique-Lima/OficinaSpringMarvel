@@ -11,9 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_character")
+@Table(name = "tb_personagem")
 public class Personagem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,11 +23,14 @@ public class Personagem implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length = 90)
+	@Column(length = 90, unique = true)
+	@NotBlank(message = "O campo nome é obrigatório")
 	private String nome;
 	private String url_foto;
 	private TipoEnum tipo;
+	@Size(min = 0)
 	private int aparicoes;
+	@Size(min = 0, max = 10)
 	private double popularidade;
 
 	public Personagem() {
